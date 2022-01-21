@@ -10,16 +10,13 @@ const port = 3000;
 const cache = {};
 
 const get = (username, size) => {
-  const url = "https://mobile.twitter.com/" + username;
+  const url = "https://twitter.com/" + username;
   return new Promise((resolve) => {
     if (cache[username]) resolve(cache[username]);
     else
       request(url, (_, __, body) => {
         const $ = cheerio.load(body);
-        const url = ($(".avatar img").attr("src") || "").replace(
-          "_normal",
-          size
-        );
+        const url = ($(".css-9pa8cd").attr("src") || "");
         cache[username] = url;
         resolve(url);
       });
